@@ -1,0 +1,5 @@
+<launch>
+
+	<node pkg="flir_ros" type="flir_node" name="flir_ros" output="screen"/>
+
+</launch>
