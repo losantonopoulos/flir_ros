@@ -34,22 +34,19 @@ add_message_files(
 #	std_msgs
 #)
 
-
 include_directories(
 	include
+	${OpenCV_INCLUDE_DIRS}
 	${catkin_INCLUDE_DIRS}
 	/usr/local/include
 )
 
 catkin_package(
-	CATKIN_DEPENDS message_runtime
-   INCLUDE_DIRS include
-#  LIBRARIES
-#  CATKIN_DEPENDS roscpp rospy sensor_msgs
+  INCLUDE_DIRS include
+  LIBRARIES flir_ros
+  CATKIN_DEPENDS message_runtime cv_bridge image_transport roscpp sensor_msgs
 #  DEPENDS system_lib
 )
-
-## FLIR TARGET DETECTOR
 
 ## Declare a C++ executable
 add_executable(flir_node src/flir_node.cpp)
@@ -59,11 +56,7 @@ add_executable(flir_node src/flir_node.cpp)
 add_dependencies(flir_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(flir_node
-	${catkin_LIBRARIES}
-	${OpenCV_LIBRARIES}
-	/usr/local/lib/libthermalgrabber.so
-)
+target_link_libraries(flir_node ${OpenCV_LIBRARIES} ${catkin_LIBRARIES} /usr/local/lib/libthermalgrabber.so)
 
 #############
 ## Install ##
